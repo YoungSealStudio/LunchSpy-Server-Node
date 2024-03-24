@@ -19,6 +19,10 @@ export class UserService {
     return this.userRepository.findOneBy({ id });
   }
 
+  async findOneByGoogleId(id: string): Promise<User> {
+    return this.userRepository.findOneBy({ googleId: id });
+  }
+
   async create(dto: { email: string; password: string }): Promise<User> {
     const isEmailExist = await this.userRepository.exists({
       where: { email: dto.email },
@@ -27,5 +31,9 @@ export class UserService {
 
     dto.password = await argon2.hash(dto.password);
     return this.userRepository.save(dto);
+  }
+
+  async createGoogleUser(googleId: string, email: string): Promise<User> {
+    return this.userRepository.save({ email, googleId });
   }
 }

@@ -40,4 +40,12 @@ export class AuthService {
 
     return user;
   }
+
+  async validateGoogleUser(googleId: string, email: string): Promise<User> {
+    let user = await this.userService.findOneByGoogleId(googleId);
+
+    if (!user) user = await this.userService.createGoogleUser(googleId, email);
+
+    return user;
+  }
 }
