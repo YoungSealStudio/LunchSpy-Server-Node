@@ -23,6 +23,7 @@ export class AuthController {
     this.client = new OAuth2Client({
       clientId: configService.get('OAUTH_GOOGLE_CLIENT_ID'),
       clientSecret: configService.get('OAUTH_GOOGLE_SECRET'),
+      redirectUri: configService.get('OAUTH_GOOGLE_CALLBACK'),
     });
   }
 
